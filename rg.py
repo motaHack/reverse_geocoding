@@ -16,9 +16,7 @@ def reverse_geo(shdf, lon, lat):
     if geos.empty == True:
         return(None)
 
-    reslist = [str(lon),
-               str(lat),
-               geos['N03_001'].to_string(index=False),
+    reslist = [geos['N03_001'].to_string(index=False),
                geos['N03_002'].to_string(index=False),
                geos['N03_003'].to_string(index=False),
                geos['N03_004'].to_string(index=False),
@@ -47,6 +45,7 @@ with open(inputfile) as f:
     longitude = float(row[column_no_lon])
     latitude = float(row[column_no_lat])
     reslist = reverse_geo(shdf, longitude, latitude)
-    writer.writerow(reslist)
+    row.extend(reslist)
+    writer.writerow(row)
 
 output.close()
