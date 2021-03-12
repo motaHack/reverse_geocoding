@@ -1,4 +1,5 @@
 import csv
+import time
 import configparser
 import geopandas as gpd
 import pandas as pd
@@ -27,17 +28,19 @@ def reverse_geo(shdf, lon, lat):
 
     return(reslist)
 
+start = time.time()
+
 # read config.ini
 inifile = configparser.ConfigParser()
 inifile.read('config.ini', 'UTF-8')
-shpfile = inifile.get('file','shp')
+feather_file = inifile.get('file','feather')
 inputfile = inifile.get('file','input')
 outputfile = inifile.get('file','output')
 column_no_lat = int(inifile.get('column','latitude'))
 column_no_lon = int(inifile.get('column','longitude'))
 
 # main
-shdf = gpd.read_file(shpfile, encoding='SHIFT-JIS')
+shdf = from_geofeather(feather_file)
 output = open(outputfile, 'w')
 writer = csv.writer(output)
 
@@ -52,3 +55,6 @@ with open(inputfile) as f:
     writer.writerow(row)
 
 output.close()
+
+elapsed_time = time.time() - start
+print ("elapsed_time:{0}".format(elapsed_time) + "[sec]")
