@@ -18,7 +18,7 @@
 # 使い方
 * 初回に以下のコマンドでshpファイルからfeatherを作成します
  * shpファイルをそのまま使うよりも処理時間が2/3になるのでそうしています
- `python3 make_feather.py filename.shp `
+ * `python3 make_feather.py filename.shp `
 * config.iniで以下を指定して実行
   * 生成されたfeatherのファイル名
   * 出力したいファイル名
