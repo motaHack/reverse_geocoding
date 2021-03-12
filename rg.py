@@ -1,6 +1,9 @@
 import csv
 import configparser
 import geopandas as gpd
+import pandas as pd
+import pyshp.shapefile as pyshp
+from geofeather import *
 from geopandas.geoseries import *
 from shapely.geometry import Point
 
@@ -14,7 +17,7 @@ def reverse_geo(shdf, lon, lat):
     geos = shdf.iloc[row]
 
     if geos.empty == True:
-        return(None)
+        return(['','','','',''])
 
     reslist = [geos['N03_001'].to_string(index=False),
                geos['N03_002'].to_string(index=False),
@@ -34,7 +37,7 @@ column_no_lat = int(inifile.get('column','latitude'))
 column_no_lon = int(inifile.get('column','longitude'))
 
 # main
-shdf = gpd.read_file(shpfile)
+shdf = gpd.read_file(shpfile, encoding='SHIFT-JIS')
 output = open(outputfile, 'w')
 writer = csv.writer(output)
 
