@@ -28,8 +28,6 @@ def reverse_geo(shdf, lon, lat):
 
     return(reslist)
 
-start = time.time()
-
 # read config.ini
 inifile = configparser.ConfigParser()
 inifile.read('config.ini', 'UTF-8')
@@ -55,6 +53,3 @@ with open(inputfile) as f:
     writer.writerow(row)
 
 output.close()
-
-elapsed_time = time.time() - start
-print ("elapsed_time:{0}".format(elapsed_time) + "[sec]")
